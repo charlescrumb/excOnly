@@ -1,0 +1,1 @@
+makes a hash table of all connections in a window
