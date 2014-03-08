@@ -75,7 +75,9 @@ for j=1:metNum
 
         %% Load the Fluorescence signal
         fluorescenceFile = [dataDirectory filesep 'fluorescence_' networkId extension];
+        positionFile = [dataDirectory filesep 'networkPositions_' networkId extension];
         F = load_data(fluorescenceFile);
+        P = load_data(positionFile);
 
         %% Compute the scores for all pairs of neurons i, j
         tic
@@ -85,7 +87,11 @@ for j=1:metNum
         else
             arg = false;
         end
-        scores{i,j} = scoringMethod(F, arg);
+        if strcmp(func2str(scoringMethod),'computeHash')
+            scores{i,j} = scoringMethod(F, arg, P);
+        else
+            scores{i,j} = scoringMethod(F, arg);
+        end
         % Note: these scoring methods do not make use of available neuron
         % positions (in their 2-D layout simulating neuron cultures).
         execution_time = toc

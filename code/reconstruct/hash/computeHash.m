@@ -1,4 +1,4 @@
-function [E] = computeHash(F, debug_)
+function [E] = computeHash(F, debug_, P)
 clear HashTable
 global HashTable
 %workaround initialization of map structure
@@ -43,16 +43,18 @@ nNeurons=size(F,2);
 
 tic
 E=zeros(nNeurons);
+timeStacked=zeros(nNeurons, nNeurons, searchWindow+1);
 for i=1:nSamples-searchWindow
     [r, c]=find(booleanSpikes(i:i+searchWindow,:));
     firstNeuron=find(booleanSpikes(i,:));
     sampleIndex=i;
     for j=1:length(firstNeuron)
         for secondNeuron=1:length(c)
-            %2nd neuron-1 to not skip hash values 1 through nNeurons
-            hash=(firstNeuron(j)-1)*(nNeurons)+c(secondNeuron);
+            %the -1 is to not skip hash values 1 through nNeurons
             dt=r(secondNeuron);
-            E(c(secondNeuron),firstNeuron(j))=E(c(secondNeuron),firstNeuron(j))+1/dt;
+            hash=(firstNeuron(j)-1)*(nNeurons)^2+(c(secondNeuron)-1)*(nNeurons)+dt;
+            E(c(secondNeuron),firstNeuron(j))=E(c(secondNeuron),firstNeuron(j))+1/dt/(1+norm(P(firstNeuron(j),:)-P(c(secondNeuron),:)))^(1/3);
+            timeStacked(c(secondNeuron),firstNeuron(j),dt)=timeStacked(c(secondNeuron),firstNeuron(j),dt)+1;
 %             try 
 %                 HashTable(hash) = [HashTable(hash); [sampleIndex dt]];
 %             catch me
@@ -74,10 +76,17 @@ end
 toc
 save('mrtable.mat','HashTable')
 D=C./max(C);
-E=E./max(max(E));
-A=diag(diag(E));
+E=E./max(max(max(E)));
+% A=diag(diag(E));
+
+%setting neuron1=neuron2 counts to zero improved the score a lot.
 E(logical(eye(size(E)))) = 0;
-E=E*(1./A);
+for i=1:searchWindow
+    timeStackedTemp=timeStacked(:,:,i);
+    timeStackedTemp(logical(eye(size(timeStacked(:,:,1))))) = 0;
+    timeStacked(:,:,i)=timeStackedTemp;
+end
+
 
 % add_timeSeries(datas,sr, 1,handles);
 
