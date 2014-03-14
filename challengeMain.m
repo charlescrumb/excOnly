@@ -23,13 +23,13 @@
 clear all;
 close all;
 %% Begin -- User defined options --
-challengeFolder = [pwd filesep];
+challengeFolder = [pwd filesep 'krumby/'];
 dataDirectory = [challengeFolder 'data'];
 submissionDirectory = [challengeFolder 'results']; % Where ready-to-submit result files are found
 modelDirectory = [challengeFolder 'models'];       % Where trained predictive models end up
 networkIdNames = {'mocktest_small'};%'mockvalid', 'mocktest'};        % IMPORTANT: these are the base names of your data files in the data directory
 %networkIdNames = {'iNet1_Size100_CC01inh', 'iNet1_Size100_CC02inh', 'iNet1_Size100_CC03inh', 'iNet1_Size100_CC04inh', 'iNet1_Size100_CC05inh', 'iNet1_Size100_CC06inh'};
-scoringMethods = {@computeHash};%@randomScore, @computeGTE}; % Other methods include: @computeIGGini, @computeIGEntropy, @computeCrossCorrelation, @computeGranger, @trainedPredictor};     
+scoringMethods = {@computeRW};%@randomScore, @computeGTE}; % Other methods include: @computeIGGini, @computeIGEntropy, @computeCrossCorrelation, @computeGranger, @trainedPredictor};     
                                  % Use:
                                  % 1) @randomScore to rapidly generate random results.
                                  % 2) @computeGTE to generate the baseline result with the GTE method to detect causality in time series. 
