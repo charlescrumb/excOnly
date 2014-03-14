@@ -1,0 +1,21 @@
+
+20140312T104849	computeHash	mocktest_small	0.6486	    0
+20140313T000847	computeHash	mocktest_small	0.6486	    0
+20140313T230445	computeRWv2	mocktest_small	0.5286	    1
+20140313T230646	computeRWv2	mocktest_small	0.5333	    1
+20140313T230752	computeRWv2	mocktest_small	0.5463	    1
+20140313T230912	computeRWv2	mocktest_small	0.5785	    1
+20140313T230947	computeRWv2	mocktest_small	0.5800	    1
+20140313T231016	computeRWv2	mocktest_small	0.5791	    1
+20140313T231122	computeRWv2	mocktest_small	0.6428	    1
+20140313T231151	computeRWv2	mocktest_small	0.6611	    1
+20140313T231227	computeHash	mocktest_small	0.6486	    0
+20140313T231318	computeRWv2	mocktest_small	0.6741	    1
+20140313T231351	computeRWv2	mocktest_small	0.6694	    1
+20140313T231423	computeRWv2	mocktest_small	0.6606	    1
+20140313T231450	computeRWv2	mocktest_small	0.6712	    1
+20140313T231520	computeRWv2	mocktest_small	0.6636	    1
+20140313T231554	computeRWv2	mocktest_small	0.6896	    1
+20140313T231639	computeRWv2	mocktest_small	0.7007	    1
+20140313T231720	computeRWv2	mocktest_small	0.7152	    1
+20140313T231949	computeRW	mocktest_small	0.7037	    1
